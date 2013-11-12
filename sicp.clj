@@ -67,6 +67,44 @@
 (defn multpn [a b] (mult 0 a b))
 
 
+;1.30
+(defn sum [term a nex b]
+  (if (> a b) 0
+    (+ (term a) (sum term (nex a) nex b))))
+
+;(defn square [x] (* x x))
+;(defn cube [x] (* x x x))
+;(defn incr [x] (inc x))
+
+
+;1.31
+(defn product [term a nex b]
+  (if (> a b) 1
+    (* (term a) (product term (nex a) nex b))))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
