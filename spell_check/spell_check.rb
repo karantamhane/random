@@ -88,8 +88,9 @@ def valid_edits word, word_freq
   valid
 end
 
-def suggestions word
-  word_freq = get_freq 'big.txt'
+
+def suggestions word, word_freq
+  
   return word if word_freq.include? word
 
   suggestions = valid_edits word, word_freq
