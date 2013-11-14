@@ -99,7 +99,7 @@ def suggestions word
     suggestions_dict[s] = word_freq[s]
   end
   output = Hash[suggestions_dict.sort_by{|key, value| value}.reverse[0, required_suggestions]]
-  print output.keys
+  output.keys
 end
 
 
