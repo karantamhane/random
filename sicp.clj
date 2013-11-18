@@ -85,20 +85,21 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;2.1
-(defn abs [x]
-  (if (< x 0) (- x)
-  x))
-
 (defn make-rat [n d]
   (if (< (* n d) 0)
-  (list (- (abs n)) (abs d))
-  (list (abs n) (abs d))))
+  (list (- (/ (abs n) (gcd n d))) (/ (abs d) (gcd n d)))
+  (list (abs (/ n (gcd n d))) (abs (/ d (gcd n d))))))
 
 (defn numer [x]
   (first x))
 
 (defn denom [x]
   (second x))
+
+(defn gcd [a b]
+  (if (= b 0) a
+    (gcd b (rem a b))))
+
 
 ;2.2
 (defn make-point [x y]
@@ -110,10 +111,21 @@
 (defn y-point [p]
   (second p))
 
-(defn midpoint-segment [p1 p2]
-  (list
-   (float (/ (+ (x-point p1) (x-point p2)) 2))
-   (float (/ (+ (y-point p1) (y-point p2)) 2))))
+(defn make-segment [p1 p2]
+  (list (make-point (first p1)(second p1)) (make-point (first p2) (second p2))))
+
+(defn start-segment [seg]
+  (first seg))
+
+(defn end-segment [seg]
+  (second seg))
+
+(defn avg [a b]
+  (/ (+ a b) 2))
+
+(defn midpoint-segment [seg]
+  (make-point (avg (x-point (start-segment seg)) (x-point (end-segment seg)))
+  (avg (y-point (start-segment seg)) (y-point (end-segment seg)))))
 
 
 
