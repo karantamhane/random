@@ -82,6 +82,49 @@
   (if (> a b) 1
     (* (term a) (product term (nex a) nex b))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;2.1
+(defn abs [x]
+  (if (< x 0) (- x)
+  x))
+
+(defn make-rat [n d]
+  (if (< (* n d) 0)
+  (list (- (abs n)) (abs d))
+  (list (abs n) (abs d))))
+
+(defn numer [x]
+  (first x))
+
+(defn denom [x]
+  (second x))
+
+;2.2
+(defn make-point [x y]
+  (list x y))
+
+(defn x-point [p]
+  (first p))
+
+(defn y-point [p]
+  (second p))
+
+(defn midpoint-segment [p1 p2]
+  (list
+   (float (/ (+ (x-point p1) (x-point p2)) 2))
+   (float (/ (+ (y-point p1) (y-point p2)) 2))))
+
+
+
+
+
+
+
+
+
+
+
 
 
 
