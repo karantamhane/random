@@ -127,6 +127,124 @@
   (make-point (avg (x-point (start-segment seg)) (x-point (end-segment seg)))
   (avg (y-point (start-segment seg)) (y-point (end-segment seg)))))
 
+;2.3 a - representing rect as two adjacent segments
+(defn distance [seg]
+  (sqrts 1.0 (+ (square (- (x-point (start-segment seg)) (x-point (end-segment seg))))
+            (square (- (y-point (start-segment seg)) (y-point (end-segment seg)))))))
+
+(defn make-rect [seg1 seg2]
+  (list seg1 seg2))
+
+(defn rect-width [rect]
+  (distance (first rect)))
+
+(defn rect-height [rect]
+  (distance (first rect)))
+
+(defn area [rect]
+  (* (rect-width rect) (rect-height rect)))
+
+(defn perimeter [rect]
+  (* 2 (+ (rect-width rect) (rect-height rect))))
+
+;2.3 b - representing rect as a pair of diagonals (segments)
+(defn make-rect [dia1 dia2]
+  (list dia1 dia2))
+
+(defn rect-width [rect]
+  (distance (make-segment (first (first rect)) (first (second rect)))))
+
+(defn rect-height [rect]
+  (distance (make-segment (first (first rect)) (second (second rect)))))
+
+;2.4
+(defn con [x y]
+  (fn [m]
+    (m x y)))
+
+(defn car [z]
+  (z (fn [p q] p)))
+
+(defn cdr [z]
+  (z (fn [p q] q)))
+
+;2.5
+(defn make-pair [a b]
+  (* (Math/pow 2 a) (Math/pow 3 b)))
+
+(defn get-a [n]
+  (loop [n n a 0]
+    (if (not= (rem n 2) 0)
+      a
+      (recur (/ n 2) (inc a)))))
+
+(defn get-b [n-a]
+  (loop [n-a n-a b 0]
+    (if (not= (rem n-a 3) 0)
+      b
+      (recur (/ n-a 3) (inc b)))))
+
+;2.7
+(defn make-interval [a b]
+  (cons a (list b)))
+
+(defn lower-bound [int]
+  (first int))
+
+(defn upper-bound [int]
+  (last int))
+
+;2.8
+(defn sub-interval [x y]
+  (make-interval (- (lower-bound x) (lower-bound y))
+  (- (upper-bound x) (upper-bound y))))
+
+;2.10
+(defn mul-interval [x y]
+  (let [p1 (* (lower-bound x) (lower-bound y))
+        p2 (* (lower-bound x) (upper-bound y))
+        p3 (* (upper-bound x) (lower-bound y))
+        p4 (* (upper-bound x) (upper-bound y))]
+    (make-interval (min p1 p2 p3 p4)
+                   (max p1 p2 p3 p4))))
+
+(defn div-interval [x y]
+  (if (= (lower-bound y) (upper-bound y))
+    "Can't divide by zero interval!"
+  (mul-interval x
+                (make-interval (/ 1.0 (upper-bound y))
+                               (/ 1.0 (lower-bound y))))))
+
+;2.12
+(defn make-center-percent [c perc]
+  (make-interval (- c (/ (* c perc) 100))
+                 (+ c (/ (* c perc) 100))))
+
+;2.13
+(defn factor-perc [x y perc]
+  (mult (make-center-percent (mul-interval x y) perc)))
+
+(defn mult [x y]
+  (list (* (first x) (first y)) (* (last x) (last y))))
+
+;(make-center-percent 9.0 10) = (mult (make-center-percent 3.0 5) (make-center-percent 3.0 5))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

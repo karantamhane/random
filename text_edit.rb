@@ -1,4 +1,3 @@
-############################require 'highlight'
 
 #TODO - Autosave functionality
 def open_file filename
@@ -11,7 +10,6 @@ def open_file filename
     @close = button "Close file" 
     #Create text field
     text_area = edit_box File.read(file), margin: 2, width: 500, height: 470 do
-      ####################highlight
       @close.click do
         save_file File.absolute_path(file), text_area
         close
@@ -49,7 +47,7 @@ end
 
 Shoes.app title: "RubyDoo", width: 340, height: 100, resizable: false do
   background black..red
-  every
+  #every
   @f = flow do
     button "New File", left: 20, top: 35 do
       file = File.new("Untitled", 'w')
